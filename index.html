@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neo Carlsson — Software & Web Developer</title>
+  
+  <!-- Importera ännu mer lekfulla & moderna typsnitt från Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Outfit:wght@400;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- Devicon CDN för faktiska logotyper och teknilikoner -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicon/devicon@v2.15.1/devicon.min.css">
+  
+  <!-- FontAwesome CDN för nav-ikoner (måne/sol & flaggor/glob) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg-base: #f4f1ea;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: #ffffff;
+      --border: rgba(210, 203, 190, 0.6);
+      --border-accent: rgba(43, 92, 143, 0.3);
+      --text-main: #191c1b;
+      --text-muted: #5e6561;
+      --accent-blue: #2b5c8f;
+      --accent-blue-light: rgba(43, 92, 143, 0.08);
+      --accent-gold: #c59b27;
+      --header-bg: rgba(244, 241, 234, 0.85);
+      
+      /* Ännu mer lekfulla & moderna typsnitt */
+      --font-heading: 'Fredoka', cursive, sans-serif;
+      --font-body: 'Outfit', -apple-system, sans-serif;
+      --font-mono: 'Space Grotesk', "Fira Code", monospace;
+      
+      --shadow-sm: 0 4px 20px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Dark Mode färgvariabler */
+    body.dark-mode {
+      --bg-base: #0f1217;
+      --bg-card: rgba(22, 27, 34, 0.85);
+      --bg-card-hover: #1c2129;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-accent: rgba(97, 175, 239, 0.4);
+      --text-main: #f0f6fc;
+      --text-muted: #8b949e;
+      --accent-blue: #4d94ff;
+      --accent-blue-light: rgba(77, 148, 255, 0.15);
+      --accent-gold: #e5c07b;
+      --header-bg: rgba(15, 18, 23, 0.85);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      overflow-x: hidden;
+      position: relative;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* --- TEKNISKA BAKGRUNDSDETALJER --- */
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-image: 
+        linear-gradient(to right, rgba(128, 128, 128, 0.05) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(128, 128, 128, 0.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: -2;
+      pointer-events: none;
+    }
+
+    .splash {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: -1;
+      pointer-events: none;
+      animation: float 14s infinite ease-in-out alternate;
+    }
+
+    .splash-1 {
+      top: -10%;
+      right: -5%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(43, 92, 143, 0.2) 0%, rgba(244, 241, 234, 0) 70%);
+    }
+
+    .splash-2 {
+      bottom: 10%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(197, 155, 39, 0.15) 0%, rgba(244, 241, 234, 0) 70%);
+      animation-delay: -5s;
+    }
+
+    @keyframes float {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(30px, 40px) scale(1.08); }
+    }
+
+    /* --- HEADER & NAV --- */
+    header {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      transition: background-color 0.3s ease;
+    }
+
+    .header-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo-dot {
+      width: 10px;
+      height: 10px;
+      background-color: var(--accent-blue);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 10px var(--accent-blue);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      position: relative;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      border-radius: 2px;
+      bottom: -4px;
+      left: 0;
+      background-color: var(--accent-blue);
+      transition: width 0.2s ease;
+    }
+
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    /* Nav Kontrollknappar (Dark mode & Språk) */
+    .nav-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-left: 0.5rem;
+      padding-left: 1rem;
+      border-left: 1px solid var(--border);
+    }
+
+    .icon-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text-main);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 700;
+      transition: all 0.2s ease;
+    }
+
+    .icon-btn:hover {
+      background: var(--accent-blue-light);
+      border-color: var(--accent-blue);
+      color: var(--accent-blue);
+      transform: translateY(-2px);
+    }
+
+    /* --- LAYOUT CONTAINER --- */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      padding: 6rem 0 4rem 0;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 0.9rem;
+      background: var(--accent-blue-light);
+      border: 1px solid var(--border-accent);
+      border-radius: 50px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-badge .pulse {
+      width: 8px;
+      height: 8px;
+      background-color: #22c55e;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+      animation: pulse-ring 1.5s infinite;
+    }
+
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+      70% { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+    }
+
+    .hero h1 {
+      font-family: var(--font-heading);
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 span {
+      color: var(--accent-blue);
+      position: relative;
+    }
+
+    .hero p {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+      max-width: 540px;
+      font-weight: 400;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 1.05rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background-color: var(--text-main);
+      color: var(--bg-base);
+      border: 1px solid var(--text-main);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-blue);
+      border-color: var(--accent-blue);
+      color: #ffffff;
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: rgba(128, 128, 128, 0.08);
+      border-color: var(--text-main);
+      transform: translateY(-3px);
+    }
+
+    /* Code Terminal Visual */
+    .terminal-window {
+      background: #1e2227;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #abb2bf;
+    }
+
+    .terminal-header {
+      background: #181a1f;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-red { background: #e06c75; }
+    .dot-yellow { background: #e5c07b; }
+    .dot-green { background: #98c379; }
+
+    .terminal-title {
+      margin-left: auto;
+      font-size: 0.75rem;
+      color: #5c6370;
+    }
+
+    .terminal-body {
+      padding: 1.2rem;
+      line-height: 1.8;
+    }
+
+    .token-keyword { color: #c678dd; }
+    .token-string { color: #98c379; }
+    .token-function { color: #61afef; }
+    .token-variable { color: #e06c75; }
+
+    /* --- SEKTIONER GENERAL --- */
+    section {
+      padding: 4rem 0;
+    }
+
+    .section-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent-blue);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-bottom: 0.3rem;
+      font-weight: 700;
+    }
+
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+
+    /* --- SKILLS SECTION (Tech Stack med Ikoner) --- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .skill-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1.8rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .skill-card:hover {
+      background: var(--bg-card-hover);
+      transform: translateY(-5px);
+      border-color: var(--border-accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .skill-icon-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .skill-card i {
+      font-size: 2.5rem;
+    }
+
+    .skill-card i.devicon-html5-plain { color: #e34f26; }
+    .skill-card i.devicon-css3-plain { color: #1572b6; }
+    .skill-card i.devicon-javascript-plain { color: #f7df1e; background: #000; border-radius: 4px; }
+    .skill-card i.devicon-python-plain { color: #3776ab; }
+    .skill-card i.devicon-java-plain { color: #007396; }
+
+    .skill-card h3 {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .skill-card p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .progress-bar {
+      height: 6px;
+      width: 100%;
+      background: var(--border);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--accent-blue);
+      border-radius: 3px;
+      width: 0;
+      transition: width 1s ease-in-out;
+    }
+
+    /* --- CERTIFIKAT --- */
+    .cert-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+
+    .cert-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .cert-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--accent-gold);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .cert-info h3 {
+      font-family: var(--font-heading);
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .cert-info p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .cert-badge {
+      background: rgba(197, 155, 39, 0.12);
+      color: var(--accent-gold);
+      border: 1px solid rgba(197, 155, 39, 0.3);
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* --- INTERAKTIV KONSOL --- */
+    .console-section {
+      background: #141619;
+      border-radius: 20px;
+      padding: 2.5rem;
+      color: #f4f1ea;
+      margin: 2rem 0 4rem 0;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .console-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .console-header h3 {
+      font-family: var(--font-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 0.3rem;
+    }
+
+    .console-header p {
+      color: #8a8f98;
+      font-size: 0.95rem;
+    }
+
+    .console-controls {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .console-btn {
+      background: #23272e;
+      border: 1px solid #333842;
+      color: #abb2bf;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .console-btn.active, .console-btn:hover {
+      background: var(--accent-blue);
+      color: #ffffff;
+      border-color: var(--accent-blue);
+    }
+
+    .console-output {
+      background: #0d0e10;
+      border-radius: 10px;
+      padding: 1.2rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: #98c379;
+      min-height: 80px;
+      border: 1px solid #23272e;
+    }
+
+    /* --- FOOTER / KONTAKT --- */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 4rem 0;
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 2rem;
+    }
+
+    .footer-brand h2 {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      max-width: 300px;
+    }
+
+    .footer-links h4 {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      color: var(--text-muted);
+      font-weight: 700;
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-blue);
+    }
+
+    .copyright {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    /* --- FADE-IN ANIMATIONER --- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 4rem 0 3rem 0;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      .cert-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+
+      .footer-content {
+        flex-direction: column;
+      }
+
+      .header-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-controls {
+        margin-left: 0;
+        padding-left: 0;
+        border-left: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+  <div class="splash splash-1"></div>
+  <div class="splash splash-2"></div>
+
+  <header>
+    <div class="header-container">
+      <div class="logo">
+        <span class="logo-dot"></span> NEO CARLSSON
+      </div>
+      <nav>
+        <a href="#kompetens" data-sv="Kompetens" data-en="Skills">Kompetens</a>
+        <a href="#certifikat" data-sv="Certifikat" data-en="Certificates">Certifikat</a>
+        <a href="#interaktivt" data-sv="Konsol" data-en="Console">Konsol</a>
+        <a href="#kontakt" data-sv="Kontakt" data-en="Contact">Kontakt</a>
+
+        <!-- Språk och Theme kontroll-ikoner -->
+        <div class="nav-controls">
+          <button class="icon-btn" id="lang-toggle" title="Byt språk / Change language">
+            <i class="fa-solid fa-globe"></i>
+          </button>
+          <button class="icon-btn" id="theme-toggle" title="Mörkt/Ljust läge">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    
+    <section class="hero">
+      <div class="hero-text">
+        <div class="hero-badge">
+          <span class="pulse"></span> 
+          <span data-sv="Tillgänglig för uppdrag & anställning" data-en="Available for hire & freelance">Tillgänglig för uppdrag & anställning</span>
+        </div>
+        <h1 data-sv="Junior utvecklare med <span>precision</span> & struktur." data-en="Junior developer with <span>precision</span> & structure.">
+          Junior utvecklare med <span>precision</span> & struktur.
+        </h1>
+        <p data-sv="18-årig mjukvaruentusiast med verifierad kunskap inom webbutveckling och starka grunder inom objektorienterad programmering och skripting." data-en="18-year-old software enthusiast with certified knowledge in web development and solid foundations in object-oriented programming.">
+          18-årig mjukvaruentusiast med verifierad kunskap inom webbutveckling och starka grunder inom objektorienterad programmering och skripting.
+        </p>
+        <div class="hero-cta">
+          <a href="#kontakt" class="btn btn-primary" data-sv="Ta kontakt" data-en="Get in touch">Ta kontakt</a>
+          <a href="#certifikat" class="btn btn-secondary" data-sv="Se Certifikat" data-en="View Certificates">Se Certifikat</a>
+        </div>
+      </div>
+
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+          <span class="terminal-title">developer.py</span>
+        </div>
+        <div class="terminal-body">
+          <span class="token-keyword">class</span> <span class="token-function">Developer</span>:<br>
+          &nbsp;&nbsp;<span class="token-keyword">def</span> <span class="token-function">__init__</span>(self):<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;self.name = <span class="token-string">"Neo Carlsson"</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;self.age = <span class="token-variable">18</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;self.certified = <span class="token-keyword">True</span><br>
+          &nbsp;&nbsp;&nbsp;&nbsp;self.stack = [<span class="token-string">"HTML"</span>, <span class="token-string">"CSS"</span>, <span class="token-string">"JS"</span>, <span class="token-string">"Python"</span>, <span class="token-string">"Java"</span>]<br><br>
+          &nbsp;&nbsp;<span class="token-keyword">def</span> <span class="token-function">get_status</span>(self):<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="token-keyword">return</span> <span class="token-string" id="term-status">"Redo att bygga nästa projekt."</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Kompetenssektion med Devicon-ikoner -->
+    <section id="kompetens" class="reveal">
+      <div class="section-header">
+        <span class="section-tag">// Tech Stack</span>
+        <h2 class="section-title" data-sv="Teknisk Kompetens" data-en="Technical Skills">Teknisk Kompetens</h2>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon-wrap">
+            <i class="devicon-html5-plain colored"></i>
+            <i class="devicon-css3-plain colored"></i>
+          </div>
+          <h3>HTML5 & CSS3</h3>
+          <p data-sv="Semantisk webbstruktur, modern Flexbox/Grid-layout och avancerade CSS-animationer." data-en="Semantic web structure, modern Flexbox/Grid layout and smooth CSS animations.">Semantisk webbstruktur, modern Flexbox/Grid-layout och avancerade CSS-animationer.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width: 100%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon-wrap">
+            <i class="devicon-javascript-plain colored"></i>
+          </div>
+          <h3>JavaScript</h3>
+          <p data-sv="Logik för dynamiska gränssnitt, DOM-manipulering och event-hantering." data-en="Logic for dynamic interfaces, DOM manipulation and event handling.">Logik för dynamiska gränssnitt, DOM-manipulering och event-hantering.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width: 90%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon-wrap">
+            <i class="devicon-python-plain colored"></i>
+          </div>
+          <h3>Python</h3>
+          <p data-sv="Skripting, datastrukturer, automatisering och grundläggande problemlösning." data-en="Scripting, data structures, automation and core problem solving.">Skripting, datastrukturer, automatisering och grundläggande problemlösning.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width: 55%;"></div></div>
+        </div>
+
+        <div class="skill-card">
+          <div class="skill-icon-wrap">
+            <i class="devicon-java-plain colored"></i>
+          </div>
+          <h3>Java</h3>
+          <p data-sv="Objektorienterad programmering (OOP), klasser, arv och strukturerad kodutveckling." data-en="Object-oriented programming (OOP), classes, inheritance and clean code.">Objektorienterad programmering (OOP), klasser, arv och strukturerad kodutveckling.</p>
+          <div class="progress-bar"><div class="progress-fill" style="width: 45%;"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifikat" class="reveal">
+      <div class="section-header">
+        <span class="section-tag" data-sv="// Verifierad Kunskap" data-en="// Verified Knowledge">// Verifierad Kunskap</span>
+        <h2 class="section-title" data-sv="Certifieringar" data-en="Certifications">Certifieringar</h2>
+      </div>
+
+      <div class="cert-container">
+        <div class="cert-card">
+          <div class="cert-info">
+            <h3 data-sv="Certifierad Webbutvecklare (HTML & CSS)" data-en="Certified Web Developer (HTML & CSS)">Certifierad Webbutvecklare (HTML & CSS)</h3>
+            <p data-sv="Verifierad kompetens inom semantisk uppbyggnad, standarder och responsiv design." data-en="Verified skills in semantic markup, web standards and responsive design.">Verifierad kompetens inom semantisk uppbyggnad, standarder och responsiv design.</p>
+          </div>
+          <div class="cert-badge" data-sv="Verifierat Certifikat" data-en="Verified Certificate">Verifierat Certifikat</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interaktiv Konsol med Språkikoner på knapparna -->
+    <section id="interaktivt" class="reveal">
+      <div class="console-section">
+        <div class="console-header">
+          <h3 data-sv="Interaktiv Testmiljö" data-en="Interactive Sandbox">Interaktiv Testmiljö</h3>
+          <p data-sv="Klicka på knapparna för att köra simuleringar av mina kompetensområden via JS." data-en="Click the buttons below to run code simulations of my skill areas via JS.">Klicka på knapparna för att köra simuleringar av mina kompetensområden via JS.</p>
+        </div>
+        <div class="console-controls">
+          <button class="console-btn active" onclick="runDemo('web')">
+            <i class="devicon-javascript-plain"></i> Web (JS)
+          </button>
+          <button class="console-btn" onclick="runDemo('python')">
+            <i class="devicon-python-plain"></i> Python Script
+          </button>
+          <button class="console-btn" onclick="runDemo('java')">
+            <i class="devicon-java-plain"></i> Java Class
+          </button>
+        </div>
+        <div class="console-output" id="console-target">
+          > Klicka på en knapp ovan för att exekvera kod...
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <footer id="kontakt">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <h2>Neo Carlsson</h2>
+          <p data-sv="Junior utvecklare redo för nya utmaningar och projekt." data-en="Junior developer ready for new challenges and exciting projects.">Junior utvecklare redo för nya utmaningar och projekt.</p>
+        </div>
+        <div class="footer-links">
+          <h4 data-sv="Kontakt" data-en="Contact">Kontakt</h4>
+          <ul>
+            <li><a href="mailto:carlssonneo20@gmail.com">carlssonneo20@gmail.com</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">GitHub</a></li>
+          </ul>
+        </div>
+        <div class="footer-links">
+          <h4 data-sv="Navigering" data-en="Navigation">Navigering</h4>
+          <ul>
+            <li><a href="#kompetens" data-sv="Kompetens" data-en="Skills">Kompetens</a></li>
+            <li><a href="#certifikat" data-sv="Certifikat" data-en="Certificates">Certifikat</a></li>
+            <li><a href="#interaktivt" data-sv="Konsol" data-en="Console">Konsol</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="copyright">
+        <div>&copy; <span id="year"></span> Neo Carlsson. <span data-sv="Alla rättigheter förbehållna." data-en="All rights reserved.">Alla rättigheter förbehållna.</span></div>
+        <div>Designad med HTML, CSS & JS</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // --- DARK MODE TOGGLE ---
+    const themeBtn = document.getElementById('theme-toggle');
+    themeBtn.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+      const isDark = document.body.classList.contains('dark-mode');
+      themeBtn.innerHTML = isDark ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    });
+
+    // --- SPRAK (SV/EN) TOGGLE ---
+    let currentLang = 'sv';
+    const langBtn = document.getElementById('lang-toggle');
+
+    langBtn.addEventListener('click', () => {
+      currentLang = currentLang === 'sv' ? 'en' : 'sv';
+      
+      // Uppdatera knappens ikon/text
+      langBtn.innerHTML = currentLang === 'sv' ? '<i class="fa-solid fa-globe"></i>' : '<strong style="font-size: 0.8rem;">SV</strong>';
+
+      // Uppdatera alla element med data-sv och data-en attribut
+      document.querySelectorAll('[data-sv]').forEach(el => {
+        const text = el.getAttribute(`data-${currentLang}`);
+        if (text) el.innerHTML = text;
+      });
+
+      // Uppdatera terminalens text beroende på språk
+      const termStatus = document.getElementById('term-status');
+      if (termStatus) {
+        termStatus.textContent = currentLang === 'sv' ? '"Redo att bygga nästa projekt."' : '"Ready to build the next project."';
+      }
+    });
+
+    // --- INTERAKTIV KONSOL DEMO ---
+    function runDemo(type) {
+      const output = document.getElementById('console-target');
+      const buttons = document.querySelectorAll('.console-btn');
+      
+      buttons.forEach(btn => btn.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      if (type === 'web') {
+        output.innerHTML = currentLang === 'sv' 
+          ? '> EXEKVERAR JAVASCRIPT...<br><span style="color: #61afef;">console.log("Status: 200 OK");</span><br>DOM uppdaterad framgångsrikt. Responsivt gränssnitt redo.'
+          : '> EXECUTES JAVASCRIPT...<br><span style="color: #61afef;">console.log("Status: 200 OK");</span><br>DOM updated successfully. Responsive UI ready.';
+      } else if (type === 'python') {
+        output.innerHTML = currentLang === 'sv'
+          ? '> EXEKVERAR PYTHON SKRIPT...<br><span style="color: #e5c07b;">import sys</span><br>Analyserar datastrukturer... [OK]<br>Process avslutad med exit-kod 0.'
+          : '> EXECUTING PYTHON SCRIPT...<br><span style="color: #e5c07b;">import sys</span><br>Analyzing data structures... [OK]<br>Process finished with exit code 0.';
+      } else if (type === 'java') {
+        output.innerHTML = currentLang === 'sv'
+          ? '> KOMPILERAR JAVA-KOD...<br><span style="color: #c678dd;">public static void main(String[] args)</span><br>Objekt instansierade. Minneshantering optimerad.'
+          : '> COMPILING JAVA CODE...<br><span style="color: #c678dd;">public static void main(String[] args)</span><br>Objects instantiated. Memory management optimized.';
+      }
+    }
+
+    // --- SCROLL REVEAL ---
+    function revealOnScroll() {
+      const reveals = document.querySelectorAll('.reveal');
+      for (let i = 0; i < reveals.length; i++) {
+        const windowHeight = window.innerHeight;
+        const elementTop = reveals[i].getBoundingClientRect().top;
+        const elementVisible = 100;
+
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add('active');
+        }
+      }
+    }
+
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
+</body>
+</html>
