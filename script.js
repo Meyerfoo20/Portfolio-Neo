@@ -62,3 +62,60 @@ const observer = new IntersectionObserver((entries) => {
       });
     });
   }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const headerElements = document.querySelectorAll('.hero-main .location-tag, .hero-main h1, .hero-main .hero-italic');
+    const bio = document.querySelector('.hero-bio');
+    const buttons = document.querySelector('.hero-buttons');
+  
+    const svEl = bio ? bio.querySelector('.lang-sv') : null;
+    const enEl = bio ? bio.querySelector('.lang-en') : null;
+  
+    let svText = '';
+    let enText = '';
+  
+    // Spara texten och töm den DIREKT vid laddning så att den inte syns alls
+    if (svEl && enEl) {
+      svText = svEl.textContent;
+      enText = enEl.textContent;
+      svEl.textContent = '';
+      enEl.textContent = '';
+    }
+  
+    // Steg 1: Tona in rubrik och tagg
+    setTimeout(() => {
+      headerElements.forEach(el => el.classList.add('fade-in'));
+    }, 100);
+  
+    // Steg 2: Visa brödtexten och starta skrivmaskinsanimationen efter 900 ms
+    setTimeout(() => {
+      if (bio) bio.classList.add('is-typing');
+      
+      startBioTypewriter(bio, svEl, enEl, svText, enText, () => {
+        // Steg 3: Tona in knapparna när texten skrivits klart
+        if (buttons) buttons.classList.add('fade-in');
+      });
+    }, 900);
+  });
+  
+  function startBioTypewriter(container, svEl, enEl, svText, enText, onComplete) {
+    if (!svEl || !enEl) return;
+  
+    container.classList.add('typing-active');
+  
+    let index = 0;
+    const maxLen = Math.max(svText.length, enText.length);
+  
+    const interval = setInterval(() => {
+      if (index < svText.length) svEl.textContent += svText[index];
+      if (index < enText.length) enEl.textContent += enText[index];
+  
+      index++;
+  
+      if (index >= maxLen) {
+        clearInterval(interval);
+        container.classList.remove('typing-active');
+        if (onComplete) onComplete();
+      }
+    }, 18);
+  }
