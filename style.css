@@ -629,6 +629,13 @@
   .mobile-toggle.active .close-icon {
     display: block;
   }
+
+  .logo-short {
+    display: none;
+  }
+  .logo-full {
+    display: inline;
+  }
   
   /* Responsivitet & Mobilupplevelse */
 @media (max-width: 960px) {
@@ -641,7 +648,6 @@
     gap: 0.4rem;
   }
 
-  /* Växla till den kortare logon på mobil */
   .logo-full { display: none; }
   .logo-short { display: inline; }
 
@@ -650,7 +656,6 @@
     display: none !important;
   }
 
-  /* Placera alla 4 länkar horisontellt */
   .nav-links {
     position: static;
     flex-direction: row;
