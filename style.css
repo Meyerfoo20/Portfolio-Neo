@@ -637,7 +637,6 @@
     display: inline;
   }
   
-  /* Responsivitet & Mobilupplevelse */
 @media (max-width: 960px) {
   body {
     overflow-x: hidden;
@@ -648,8 +647,8 @@
     gap: 0.4rem;
   }
 
-  .logo-full { display: none; }
-  .logo-short { display: inline; }
+  .logo-full { display: none !important; }
+  .logo-short { display: inline !important; }
 
   /* Dölj hamburgarknappen */
   .mobile-toggle {
