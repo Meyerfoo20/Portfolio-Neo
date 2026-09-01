@@ -631,136 +631,148 @@
   }
   
   /* Responsivitet & Mobilupplevelse */
-  @media (max-width: 960px) {
-    body {
-      overflow-x: hidden;
-    }
-  
-    .nav-container {
-      padding: 0.8rem 1.2rem;
-    }
-  
-    .mobile-toggle {
-      display: flex;
-    }
-  
-    /* Utfällbar mobilmeny med frostad glas-effekt */
-    .nav-links {
-      position: fixed;
-      top: 65px;
-      left: 0;
-      width: 100%;
-      background-color: var(--bg-main);
-      border-bottom: 1px solid var(--border-color);
-      flex-direction: column;
-      padding: 2rem 1.5rem;
-      gap: 1.5rem;
-      text-align: center;
-      box-shadow: 0 15px 30px var(--shadow-color);
-      transform: translateY(-150%);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-    }
-  
-    .nav-links.active {
-      transform: translateY(0);
-      opacity: 1;
-      pointer-events: all;
-    }
-  
-    .nav-links a {
-      font-size: 1.15rem;
-      display: block;
-      padding: 0.4rem 0;
-    }
-  
-    /* Hero-sektion */
-    #hero {
-      padding: 7rem 1.2rem 3.5rem;
-    }
-  
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-    }
-  
-    .hero-main h1 {
-      font-size: 2.6rem;
-    }
-  
-    .hero-italic {
-      font-size: 1.5rem;
-      margin-bottom: 1.2rem;
-    }
-  
-    .hero-bio {
-      font-size: 0.88rem;
-      margin-bottom: 1.8rem;
-    }
-  
-    /* Sidebar & Profilbild på mobil */
-    .hero-sidebar {
-      padding-left: 0;
-      border-left: none;
-      border-top: 1px solid var(--border-color);
-      padding-top: 2rem;
-      align-items: center;
-      text-align: center;
-    }
-  
-    .sidebar-avatar {
-      width: 140px;
-      height: 140px;
-    }
-  
-    .sidebar-socials {
-      flex-direction: row;
-      justify-content: center;
-      gap: 1.5rem;
-    }
-  
-    .sidebar-meta {
-      flex-direction: row;
-      justify-content: space-around;
-      width: 100%;
-    }
-  
-    /* Omvandla projektlistan till snygga mobilkort */
-    .project-text-item {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1.8rem 1.4rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 16px;
-      margin-bottom: 1.2rem;
-      box-shadow: 0 4px 15px var(--shadow-color);
-    }
-  
-    .project-text-item:first-child {
-      border-top: 1px solid var(--border-color);
-    }
-  
-    .project-num {
-      font-size: 0.8rem;
-      opacity: 0.8;
-    }
-  
-    .project-text-item h3 {
-      font-size: 1.35rem;
-    }
-  
-    .project-links {
-      flex-direction: row;
-      gap: 1.2rem;
-      margin-top: 0.5rem;
-      padding-top: 0.8rem;
-      border-top: 1px stroke var(--border-color);
-    }
+@media (max-width: 960px) {
+  body {
+    overflow-x: hidden;
   }
+
+  .nav-container {
+    padding: 0.8rem 0.5rem;
+    gap: 0.4rem;
+  }
+
+  /* Växla till den kortare logon på mobil */
+  .logo-full { display: none; }
+  .logo-short { display: inline; }
+
+  /* Dölj hamburgarknappen */
+  .mobile-toggle {
+    display: none !important;
+  }
+
+  /* Placera alla 4 länkar horisontellt */
+  .nav-links {
+    position: static;
+    flex-direction: row;
+    background-color: transparent;
+    border-bottom: none;
+    padding: 0;
+    gap: 0.55rem;
+    box-shadow: none;
+    transform: none;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .nav-links a {
+    font-size: 0.75rem;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  /* Justera knappsatsen för att spara utrymme */
+  .nav-controls {
+    gap: 0.35rem;
+  }
+
+  .lang-switcher {
+    padding: 2px;
+  }
+
+  .lang-btn {
+    padding: 0.2rem 0.4rem;
+    font-size: 0.68rem;
+  }
+
+  .icon-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  /* Hero-sektion */
+  #hero {
+    padding: 7rem 1.2rem 3.5rem;
+  }
+
+  .hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .hero-main h1 {
+    font-size: 2.6rem;
+  }
+
+  .hero-italic {
+    font-size: 1.5rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-bio {
+    font-size: 0.88rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .hero-sidebar {
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    align-items: center;
+    text-align: center;
+  }
+
+  .sidebar-avatar {
+    width: 140px;
+    height: 140px;
+  }
+
+  .sidebar-socials {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .sidebar-meta {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+  .project-text-item {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    padding: 1.8rem 1.4rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 4px 15px var(--shadow-color);
+  }
+
+  .project-text-item:first-child {
+    border-top: 1px solid var(--border-color);
+  }
+
+  .project-num {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+
+  .project-text-item h3 {
+    font-size: 1.35rem;
+  }
+
+  .project-links {
+    flex-direction: row;
+    gap: 1.2rem;
+    margin-top: 0.5rem;
+    padding-top: 0.8rem;
+    border-top: 1px stroke var(--border-color);
+  }
+}
   
-  @media (max-width: 580px) {
+  @media (max-width: 780px) {
     .hero-buttons {
       flex-direction: column;
       width: 100%;
