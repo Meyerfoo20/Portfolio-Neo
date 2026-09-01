@@ -301,8 +301,8 @@
   }
   
   .sidebar-avatar {
-    width: 165px;
-    height: 165px;
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 8px 20px var(--shadow-color);
@@ -785,7 +785,6 @@
     }
   }
 
-  /* Initialt läge för toningsanimationer */
 .hero-main .location-tag,
 .hero-main h1,
 .hero-main .hero-italic,

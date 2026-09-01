@@ -82,17 +82,14 @@ const observer = new IntersectionObserver((entries) => {
       enEl.textContent = '';
     }
   
-    // Steg 1: Tona in rubrik och tagg
     setTimeout(() => {
       headerElements.forEach(el => el.classList.add('fade-in'));
     }, 100);
   
-    // Steg 2: Visa brödtexten och starta skrivmaskinsanimationen efter 900 ms
     setTimeout(() => {
       if (bio) bio.classList.add('is-typing');
       
       startBioTypewriter(bio, svEl, enEl, svText, enText, () => {
-        // Steg 3: Tona in knapparna när texten skrivits klart
         if (buttons) buttons.classList.add('fade-in');
       });
     }, 900);
