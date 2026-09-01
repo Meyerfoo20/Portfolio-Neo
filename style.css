@@ -643,8 +643,11 @@
     .mobile-toggle {
       display: flex;
     }
+
+    .nav-container .logo {
+      display: none;
+    }
   
-    /* Utfällbar mobilmeny med frostad glas-effekt */
     .nav-links {
       position: fixed;
       top: 65px;
@@ -757,6 +760,12 @@
       margin-top: 0.5rem;
       padding-top: 0.8rem;
       border-top: 1px stroke var(--border-color);
+    }
+    .footer-links a {
+      color: #f8f6f0;
+      font-family: 'Space Mono', monospace;
+      font-weight: 700;
+      font-size: 0.6rem;
     }
   }
   
