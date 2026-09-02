@@ -963,3 +963,48 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
 }
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-tooltip {
+  position: absolute;
+  bottom: 90%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  border: 1px solid var(--accent-green);
+  padding: 0.6rem 0.9rem;
+  border-radius: 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.4;
+  width: 210px;
+  text-align: center;
+  box-shadow: 0 8px 20px var(--shadow-color);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 10;
+}
+
+.avatar-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: var(--accent-green) transparent transparent transparent;
+}
+
+.avatar-wrapper:hover .avatar-tooltip {
+  opacity: 0.8;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}

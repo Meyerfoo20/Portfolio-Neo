@@ -116,3 +116,33 @@ const observer = new IntersectionObserver((entries) => {
       }
     }, 18);
   }
+
+  const avatarWrapper = document.querySelector('.avatar-wrapper');
+const tooltipTextEl = document.getElementById('tooltip-text');
+const tooltipText = "Studerar på NTI TE4 Helsingborg, tillgänglig för konsult jobb.";
+let tooltipInterval = null;
+
+if (avatarWrapper && tooltipTextEl) {
+  avatarWrapper.addEventListener('mouseenter', () => {
+    clearInterval(tooltipInterval);
+    tooltipTextEl.textContent = '';
+    
+    // Kort fördröjning så att bubblan hinner synas innan texten börjar skrivas
+    setTimeout(() => {
+      let i = 0;
+      tooltipInterval = setInterval(() => {
+        if (i < tooltipText.length) {
+          tooltipTextEl.textContent += tooltipText[i];
+          i++;
+        } else {
+          clearInterval(tooltipInterval);
+        }
+      }, 25);
+    }, 200);
+  });
+
+  avatarWrapper.addEventListener('mouseleave', () => {
+    clearInterval(tooltipInterval);
+    tooltipTextEl.textContent = '';
+  });
+}
