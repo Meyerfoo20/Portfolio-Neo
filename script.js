@@ -44,7 +44,7 @@ const observer = new IntersectionObserver((entries) => {
     });
   }, { threshold: 0.1 });
   
-  document.querySelectorAll('.skill-card, .project-text-item').forEach(el => observer.observe(el));
+  document.querySelectorAll('.skill-card, .project-card').forEach(el => observer.observe(el));
 
   const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
   const navLinks = document.getElementById('nav-links');

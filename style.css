@@ -71,9 +71,9 @@
     top: 0;
     left: 0;
     width: 100%;
-    background-color: rgba(248, 246, 240, 0.85);
+    background-color: #f8f6f006;
     backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(6px);
     border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     transition: background-color 0.3s ease, border-color 0.3s ease;
@@ -481,91 +481,234 @@
     line-height: 1.6;
   }
   
-  /* Projekt Sektion */
-  #projects {
-    background-color: var(--bg-main);
-    transition: background-color 0.3s ease;
+/*PROJEKT SEKTION*/
+#projects {
+  background-color: var(--bg-main);
+  transition: background-color 0.3s ease;
+}
+
+.section-header {
+  margin-bottom: 3rem;
+}
+
+.section-header .section-title {
+  margin-bottom: 0.4rem;
+}
+
+.section-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+}
+
+/* Projektkort */
+#projects {
+  background-color: var(--bg-main);
+  transition: background-color 0.3s ease;
+  padding: 5rem 2rem;
+}
+
+.section-header {
+  margin-bottom: 2rem;
+}
+
+.section-header .section-title {
+  margin-bottom: 0.3rem;
+}
+
+.section-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Projektkort - Mer kompakt */
+.project-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 1.35rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 16px var(--shadow-color);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), 
+              border-color 0.3s ease, 
+              box-shadow 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.project-card.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-card:hover {
+  transform: translateY(-4px) scale(1.02) rotate(1deg);
+  border-color: var(--accent-green);
+  box-shadow: 0 14px 28px -8px var(--shadow-color);
+}
+
+
+.project-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.8rem;
+}
+
+.project-num {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--accent-green);
+  opacity: 0.85;
+}
+
+.project-badge {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 50px;
+  background-color: var(--accent-green-light);
+  color: var(--accent-green);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+}
+
+.project-content {
+  margin-bottom: 0.9rem;
+}
+
+.project-title {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.02em;
+}
+
+.project-title a {
+  color: inherit;
+  transition: color 0.2s ease;
+}
+
+.project-title a:hover {
+  color: var(--accent-green);
+}
+
+.project-desc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 1.1rem;
+}
+
+.tech-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  background-color: var(--bg-alt);
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+  transition: background-color 0.2s ease;
+}
+
+.project-card:hover .tech-tag {
+  border-color: rgba(52, 211, 153, 0.3);
+}
+
+.project-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-top: 0.85rem;
+  border-top: 1px dashed var(--border-color);
+}
+
+.btn-project {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.85rem;
+  border-radius: 6px;
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-project.primary {
+  background-color: var(--accent-green);
+  color: #ffffff;
+  border: 1px solid var(--accent-green);
+  flex: 1;
+}
+
+[data-theme="dark"] .btn-project.primary {
+  color: #0d1117;
+}
+
+.btn-project.primary:hover {
+  background-color: var(--accent-green-hover);
+  border-color: var(--accent-green-hover);
+  transform: translateY(-2px);
+}
+
+.btn-project.secondary {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-color);
+}
+
+.btn-project.secondary:hover {
+  background-color: var(--accent-green-light);
+  border-color: var(--accent-green);
+  color: var(--accent-green);
+  transform: translateY(-2px);
+}
+
+/* Responsiv anpassning för projektkort */
+@media (max-width: 600px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
   
-  .projects-text-list {
-    display: flex;
+  .project-actions {
     flex-direction: column;
   }
   
-  .project-text-item {
-    position: relative;
-    padding: 2.5rem 1rem;
-    border-bottom: 1px solid var(--border-color);
-    display: grid;
-    grid-template-columns: 70px 1.5fr 2fr auto;
-    align-items: center;
-    gap: 2rem;
-    transition: border-color 0.3s ease;
-  }
-  
-  .project-text-item::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    left: 0;
+  .btn-project {
     width: 100%;
-    height: 2px;
-    background-color: var(--accent-green);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
-  
-  .project-text-item:hover::after {
-    transform: scaleX(1);
-  }
-  
-  .project-text-item:first-child {
-    border-top: 1px solid var(--border-color);
-  }
-  
-  .project-num {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.9rem;
-    color: var(--accent-green);
-    font-weight: 700;
-  }
-  
-  .project-text-item h3 {
-    font-size: 1.55rem;
-    font-weight: 700;
-    color: var(--text-main);
-  }
-  
-  .project-desc {
-    font-size: 1rem;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-  
-  .project-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    align-items: flex-start;
-  }
-  
-  .project-text-link {
-    font-family: 'Space Mono', monospace;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--accent-green);
-    display: inline-flex;
-    align-items: center;
-    gap: 0.3rem;
-    white-space: nowrap;
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.25s ease;
-  }
-  
-  .project-text-link:hover {
-    transform: scale(1.08) rotate(-4deg);
-    color: var(--accent-green-hover);
-  }
+}
   
   /* Footer Sektion */
   footer {
