@@ -119,7 +119,7 @@ const observer = new IntersectionObserver((entries) => {
 
   const avatarWrapper = document.querySelector('.avatar-wrapper');
 const tooltipTextEl = document.getElementById('tooltip-text');
-const tooltipText = "Studerar på NTI TE4 Helsingborg, tillgänglig för konsult jobb.";
+const tooltipText = "Studerar på NTI TE4 Helsingborg, tillgänglig för konsult jobb m.m.";
 let tooltipInterval = null;
 
 if (avatarWrapper && tooltipTextEl) {
